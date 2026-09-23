@@ -1,0 +1,19 @@
+# Virtual environments
+.venv/
+env/
+venv/
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# macOS
+.DS_Store
+
+# Model weights & downloaded checkpoints
+sarvam-1-*/
+*.safetensors
+*.bin
+*.pt
+*.pth
+*.gguf
