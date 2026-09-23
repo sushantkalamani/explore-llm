@@ -1,3 +1,5 @@
+# Benchmarking Sarvam-1 on Apple Silicon (M2 Pro)
+
 observations on sarvam 1
 
 The first run in MLX is slow because the model needs to get the weights from memroy to RAM, complie the code and show result. Subsiquest runs will use the weignts from cache, hence we shoudl skip considering first test to calcualte TTFT
@@ -12,7 +14,7 @@ The first run in MLX is slow because the model needs to get the weights from mem
 Tested sarvam 1 8bit batch wise
 
 Result were intresting from single prompt to batch of four I got ~3X more thouput but the thruopt was arount same or we can say hit the plateaus for batch 8 where the peak memory was not that changed.
-So we can conclude that throuput with my macbook m2pro I can get max of 4 batch size, and I am not memory bountd but gpu/compute bound
+Throughput plateaus at batch 4-8, likely a compute or memory-bandwidth ceiling, not confirmed by profiling.
 
 | Batch size | Throughput  | Peak memory |
 | ---------- | ----------- | ----------- |
@@ -26,4 +28,4 @@ So we can conclude that throuput with my macbook m2pro I can get max of 4 batch 
 | ---------------- | ------------------------------------------------------------------------------------------------ |
 | Framework (fp16) | MLX ~1.5s TTFT vs transformers ~2s modest, ~25%                                                 |
 | Quantization     | fp16 → 8-bit → 4-bit: roughly 3s → 1.5s → 0.5s TTFT — this was the dominant lever           |
-| Batching         | 1→4: 3.1x throughput; 4→8: flat — concurrency ceiling around batch 4 on M2 Pro unified memory |
+| Batching         | 1 to 4: 3.1x throughput; 4 to 8: flat -- likely compute or bandwidth ceiling, not profiled     |
