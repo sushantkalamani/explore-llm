@@ -2,7 +2,7 @@
 
 observations on sarvam 1
 
-The first run in MLX is slow because the model needs to get the weights from memroy to RAM, complie the code and show result. Subsiquest runs will use the weignts from cache, hence we shoudl skip considering first test to calcualte TTFT
+The first run in MLX is slow because the model needs to get the weights from memory to RAM, compile the code and show result. Subsequent runs will use the weights from cache, hence we should skip considering first test to calculate TTFT
 
 | Precision | MLX (warm avg) | Transformers |
 | --------- | -------------- | ------------ |
@@ -13,7 +13,7 @@ The first run in MLX is slow because the model needs to get the weights from mem
 
 Tested sarvam 1 8bit batch wise
 
-Result were intresting from single prompt to batch of four I got ~3X more thouput but the thruopt was arount same or we can say hit the plateaus for batch 8 where the peak memory was not that changed.
+Results were interesting, from single prompt to batch of four I got ~3X more throughput but the throughput was around same or we can say hit the plateau for batch 8 where the peak memory was not that changed.
 Throughput plateaus at batch 4-8, likely a compute or memory-bandwidth ceiling, not confirmed by profiling.
 
 | Batch size | Throughput  | Peak memory |
@@ -27,5 +27,5 @@ Throughput plateaus at batch 4-8, likely a compute or memory-bandwidth ceiling, 
 | Axis             | Result                                                                                           |
 | ---------------- | ------------------------------------------------------------------------------------------------ |
 | Framework (fp16) | MLX ~1.5s TTFT vs transformers ~2s modest, ~25%                                                 |
-| Quantization     | fp16 → 8-bit → 4-bit: roughly 3s → 1.5s → 0.5s TTFT — this was the dominant lever           |
-| Batching         | 1 to 4: 3.1x throughput; 4 to 8: flat -- likely compute or bandwidth ceiling, not profiled     |
+| Quantization     | fp16 to 8-bit to 4-bit: roughly 3s to 1.5s to 0.5s TTFT, this was the dominant lever        |
+| Batching         | 1 to 4: 3.1x throughput; 4 to 8: flat, likely compute or bandwidth ceiling, not profiled     |
